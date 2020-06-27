@@ -1,0 +1,60 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: p2
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      username: lidaye
+      password: 123
+      url: jdbc:mysql://www.lidaye.top:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      # druid 配置
+      initial-size: 5
+      max-active: 20
+      min-idle: 3
+      #      配置监控统计拦截器 日志配置  Slf4j  logback
+      #      stat监控数据库性能
+      #      wall  用于防火墙
+      #      日志先关 slf4j logback  log4j  log4j2
+      filter: stat,wall,slf4j
+      web-stat-filter:
+        enabled: true
+        log-slow-sql: true
+        url-pattern:  '/*'
+        # 排除不拦截的 请求
+        exclusions: "*.js,*.png,/druid/*"
+
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        #  是否可以使用重置功能
+        reset-enable: true
+        login-username: admin
+        login-password: admin
+        #  允许访问的id
+        allow: 127.0.0.1
+        #  和名单
+        deny: ""
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8099/eureka/
+  instance:
+    prefer-ip-address: true
+
+tx-lcn:
+  client:
+    manager-address: 127.0.0.1:8070
+
+mybatis:
+  # 别名
+  mapper-locations: classpath:mappers/**/*.xml
+

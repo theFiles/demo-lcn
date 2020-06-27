@@ -1,0 +1,46 @@
+server:
+  port: 6060
+
+spring:
+  application:
+    name: tx-m
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      username: lidaye
+      password: 123
+      url: jdbc:mysql://www.lidaye.top:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      # druid ����
+      initial-size: 5
+      max-active: 20
+      min-idle: 3
+      #      ���ü��ͳ�������� ��־����  Slf4j  logback
+      #      stat������ݿ�����
+      #      wall  ���ڷ���ǽ
+      #      ��־�ȹ� slf4j logback  log4j  log4j2
+      filter: stat,wall,slf4j
+      web-stat-filter:
+        enabled: true
+        log-slow-sql: true
+        url-pattern:  '/*'
+        # �ų������ص� ����
+        exclusions: "*.js,*.png,/druid/*"
+
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        #  �Ƿ����ʹ�����ù���
+        reset-enable: true
+        login-username: admin
+        login-password: admin
+        #  ������ʵ�id
+        allow: 127.0.0.1
+        #  ������
+        deny: ""
+
+
+tx-lcn:
+  manager:
+    port: 8070
